@@ -18,7 +18,7 @@ import javax.crypto.spec.PBEKeySpec;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "WeightTracker.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 3;
 
     private static DatabaseHelper instance;
 
@@ -49,7 +49,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-    // Public constructor kept for backwards compatibility if needed directly
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -84,14 +83,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createIndex);
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEIGHT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         onCreate(db);
     }
 
-    // Resolves integer user_id from username
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db);
+    }
+
     public int getUserId(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         int userId = -1;
@@ -113,20 +115,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(COL_SALT, "NONE");
         } else {
             byte[] salt = generateSalt();
-            byte[] rawHash = hashPassword(password, salt);
+            byte[] hashBytes = hashPassword(password, salt);
 
-            String hash = Base64.encodeToString(rawHash, Base64.NO_WRAP);
-
-            values.put(COL_PASSWORD_HASH, hash);
+            // Encode the raw hash bytes directly into Base64
+            String hashBase64 = Base64.encodeToString(hashBytes, Base64.NO_WRAP);
+            values.put(COL_PASSWORD_HASH, hashBase64);
             values.put(COL_SALT, Base64.encodeToString(salt, Base64.NO_WRAP));
-
-            Arrays.fill(rawHash, (byte) 0);
-            Arrays.fill(salt, (byte) 0);
-        }
-
-        // Clear password buffer after creation
-        if (password != null) {
-            Arrays.fill(password, '\0');
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -157,23 +151,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
 
-        if (storedHashBase64 == null || storedSaltBase64 == null) {
-            Arrays.fill(password, '\0');
+        if (storedHashBase64 == null || storedSaltBase64 == null || "OAUTH_EXTERNAL_USER".equals(storedHashBase64)) {
+            if (password != null) Arrays.fill(password, '\0');
             return false;
         }
 
-        byte[] salt = Base64.decode(storedSaltBase64, Base64.NO_WRAP);
-        byte[] storedHash = Base64.decode(storedHashBase64, Base64.NO_WRAP);
-        byte[] computedHash = hashPassword(password, salt);
+        try {
+            byte[] salt = Base64.decode(storedSaltBase64, Base64.NO_WRAP);
+            byte[] storedHash = Base64.decode(storedHashBase64, Base64.NO_WRAP);
+            byte[] computedHash = hashPassword(password, salt);
 
-        boolean authenticated = constantTimeAreEqual(storedHash, computedHash);
+            boolean authenticated = constantTimeAreEqual(storedHash, computedHash);
 
-        Arrays.fill(salt, (byte) 0);
-        Arrays.fill(storedHash, (byte) 0);
-        Arrays.fill(computedHash, (byte) 0);
-        Arrays.fill(password, '\0');
+            Arrays.fill(salt, (byte) 0);
+            Arrays.fill(storedHash, (byte) 0);
+            Arrays.fill(computedHash, (byte) 0);
+            if (password != null) Arrays.fill(password, '\0');
 
-        return authenticated;
+            return authenticated;
+        } catch (IllegalArgumentException e) {
+            // Catches Base64 decoding issues from existing corrupt database entries
+            if (password != null) Arrays.fill(password, '\0');
+            return false;
+        }
     }
 
     // --- Goal Weight Methods ---

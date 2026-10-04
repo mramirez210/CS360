@@ -32,10 +32,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.concurrent.Executor;
 
-// AndroidX Credentials
-// Google Identity
-// Firebase Auth
-
 public class MainActivity extends AppCompatActivity {
     private TextInputLayout tilUsername, tilPassword;
     private TextInputEditText etUsername, etPassword;
@@ -55,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Check active session BEFORE layout inflation to prevent unnecessary UI rendering
+        sharedPreferences = getSharedPreferences("WeightTrackerData", Context.MODE_PRIVATE);
+        String currentUser = sharedPreferences.getString("current_user", null);
+        if (currentUser != null && !currentUser.isEmpty() && !isBiometricAvailable()) {
+            navigateToTracker();
+            return;
+        }
+
         setContentView(R.layout.activity_main);
 
         // Initialize Firebase Auth
@@ -74,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Initializing Helpers & Managers
         databaseHelper = new DatabaseHelper(this);
-        sharedPreferences = getSharedPreferences("WeightTrackerData", Context.MODE_PRIVATE);
         credentialManager = CredentialManager.create(this);
 
         // Setting up biometrics
@@ -92,8 +96,10 @@ public class MainActivity extends AppCompatActivity {
         btnBiometricLogin.setOnClickListener(v -> biometricPrompt.authenticate(promptInfo));
         btnGoogleLogin.setOnClickListener(v -> performGoogleLogin());
 
-        // Trigger Session Check LAST
-        checkExistingSession();
+        // Prompt biometric if session exists and biometrics are supported
+        if (currentUser != null && !currentUser.isEmpty() && isBiometricAvailable()) {
+            btnBiometricLogin.post(() -> biometricPrompt.authenticate(promptInfo));
+        }
     }
 
     private void performGoogleLogin() {
@@ -111,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 request,
                 null,
                 ContextCompat.getMainExecutor(this),
-                new CredentialManagerCallback<>() {
+                new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
                     @Override
                     public void onResult(GetCredentialResponse result) {
                         if (result.getCredential() instanceof CustomCredential customCredential) {
@@ -119,12 +125,13 @@ public class MainActivity extends AppCompatActivity {
                                 try {
                                     GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(customCredential.getData());
                                     String googleIdToken = googleIdTokenCredential.getIdToken();
-
                                     firebaseAuthWithGoogle(googleIdToken);
                                 } catch (Exception e) {
                                     showStatusMessage("Google Login failed parsing credentials", true);
                                 }
                             }
+                        } else {
+                            showStatusMessage("Unsupported credential type returned", true);
                         }
                     }
 
@@ -193,24 +200,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Login with your pin or fingerprint")
+                .setTitle("Login with your fingerprint")
+                .setSubtitle("Confirm your identity to continue")
                 .setAllowedAuthenticators(
                         BiometricManager.Authenticators.BIOMETRIC_STRONG |
                                 BiometricManager.Authenticators.BIOMETRIC_WEAK |
                                 BiometricManager.Authenticators.DEVICE_CREDENTIAL
                 )
                 .build();
-    }
-
-    private void checkExistingSession() {
-        String currentUser = sharedPreferences.getString("current_user", null);
-        if (currentUser != null && !currentUser.isEmpty()) {
-            if (isBiometricAvailable()) {
-                biometricPrompt.authenticate(promptInfo);
-            } else {
-                navigateToTracker();
-            }
-        }
     }
 
     private boolean isBiometricAvailable() {
@@ -253,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
         String username = getTrimmedText(etUsername);
         String password = getTrimmedText(etPassword);
 
-        if (hasInvalidInputs(username, password)){
+        if (hasInvalidInputs(username, password)) {
             return;
         }
 
@@ -261,20 +258,15 @@ public class MainActivity extends AppCompatActivity {
             tilPassword.setError("Password must be at least 12 characters long");
             return;
         }
-
         if (databaseHelper.checkUserExists(username)) {
-            tilUsername.setError("Username already exists. Please login");
+            tilUsername.setError("Username already exists. Please login.");
         } else {
             if (databaseHelper.createUser(username, password.toCharArray())) {
-                showStatusMessage("Account creation successful!", false);
-                Toast.makeText(this, "Account created! Logging in", Toast.LENGTH_SHORT).show();
-
-                sharedPreferences.edit()
-                        .putString("current_user", username)
-                        .apply();
-                navigateToTracker();
+                showStatusMessage("Account creation successful! You can log in.", false);
+                Toast.makeText(this, "Account created!", Toast.LENGTH_SHORT).show();
+                etPassword.setText("");
             } else {
-                showStatusMessage("Accoutn creation failed. Please try again!", true);
+                showStatusMessage("Account creation failed. Please try again!", true);
             }
         }
     }
@@ -304,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void navigateToTracker() {
         Intent intent = new Intent(MainActivity.this, WeightTracking.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
@@ -317,8 +310,7 @@ public class MainActivity extends AppCompatActivity {
         tvStatusMessage.setText(message);
         tvStatusMessage.setVisibility(View.VISIBLE);
 
-        int colorRes;
-        colorRes = isError ? android.R.color.holo_red_dark : android.R.color.holo_green_dark;
+        int colorRes = isError ? android.R.color.holo_red_dark : android.R.color.holo_green_dark;
         tvStatusMessage.setTextColor(ContextCompat.getColor(this, colorRes));
 
         tvStatusMessage.postDelayed(() -> {
