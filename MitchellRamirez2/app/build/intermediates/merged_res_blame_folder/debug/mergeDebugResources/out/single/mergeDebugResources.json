@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/layout_activity_sms_permission.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/layout/activity_sms_permission.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/layout_row_weight_entry.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/layout/row_weight_entry.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/layout_activity_weight_tracking.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/layout/activity_weight_tracking.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/drawable_ic_sms_notification.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/drawable/ic_sms_notification.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/layout_backup_rules.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/layout/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/layout_dialog_add_entry.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/layout/dialog_add_entry.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/layout_dialog_set_goal.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/layout/dialog_set_goal.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/layout_activity_main.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/layout_data_extraction_rules.xml.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/layout/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.mitchellramirez2.app-debug-49:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.mitchellramirez2.app-main-51:/mipmap-hdpi/ic_launcher_round.webp"
+    }
+]

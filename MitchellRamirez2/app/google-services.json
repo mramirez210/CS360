@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "798542585663",
+    "project_id": "weightlossappmr",
+    "storage_bucket": "weightlossappmr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798542585663:android:43fe51ad2d7fd94748fd8a",
+        "android_client_info": {
+          "package_name": "com.example.mitchellramirez2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798542585663-5hmrnrjgcskmi187sasapj592vfqdthp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mitchellramirez2",
+            "certificate_hash": "035e76cbe993970479b69dd08ec81bc35fde4c21"
+          }
+        },
+        {
+          "client_id": "798542585663-130iqojt7m7pk4ehhpug0e2c4cn56qu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATMNpt1yhhMNRN-anXkxtJnYAp3GZOvGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798542585663-130iqojt7m7pk4ehhpug0e2c4cn56qu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

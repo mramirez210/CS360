@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Weight Tracker</string>
+    <string name="enter_name_hint">Enter your name</string>
+    <string name="say_hello">Say Hello</string>
+
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_create_account">Create Account</string>
+    <string name="login_with_biometrics_pin">Login with Biometrics / PIN</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="logout">Logout</string>
+
+    <string name="label_user_prefix">User: %1$s</string>
+    <string name="label_goal_prefix">Goal: %1$.1f lbs</string>
+    <string name="label_goal_not_set">Goal: Not Set</string>
+    <string name="btn_add_entry">Add Entry</string>
+    <string name="btn_set_goal">Set Goal</string>
+
+    <string name="sms_status">SMS Status: %1$s</string>
+    <string name="sms_enabled">Enabled</string>
+    <string name="sms_disabled">Disabled</string>
+    <string name="last_notification_sent">Last notification was sent: %1$s</string>
+    <string name="sms_goal_message">Congratulations %1$s! You have reached your goal weight of %2$.1f lbs!</string>
+    <string name="default_web_client_id">798542585663-130iqojt7m7pk4ehhpug0e2c4cn56qu8.apps.googleusercontent.com</string>
+</resources>
