@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvCurrentUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User: "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvGoalWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Goal: "
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/gridContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <Button
+        android:id="@+id/btnAddEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Entry" />
+
+    <Button
+        android:id="@+id/btnSetGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Goal" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout" />
+</LinearLayout>
